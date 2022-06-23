@@ -7,14 +7,16 @@ from . serializers import PassDetailsSerializer, StudentDetailsSerializer
 # from QRCodeBackend.apis import serializers
 
 # Create your views here.
+StudentDetailsSchema = f'"id": "1","first_name": "Jawed","last_name": "Alam","email": "zjaweds@gmail.com","course": "MCA","roll_no": "19MCA020","student_image": "/media/uploads/2022/0622/1613544.jpg"'
 
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
-        'Get All Pass Details: ':'all-pass-details/',
-        'Get One Pass Detail: ':'unique-pass-details/{uid}',
-        'Update A Pass Detail: ':'update-pass-details/{uid}',
-        'Delete A Pass Detail: ':'delete-pass-details/{uid}',
+        # 'Get All Pass Details: ':'all-pass-details/',
+        # 'Get One Pass Detail: ':'unique-pass-details/{uid}',
+        # 'Update A Pass Detail: ':'update-pass-details/{uid}',
+        # 'Delete A Pass Detail: ':'delete-pass-details/{uid}',
+        'Student Details JSON Structure': StudentDetailsSchema,
         'Get A Student Detail: ':'unique-student-detail/{uid}',
         'Create a student Details':'create-student-details/',
         'Get All Student Details: ':'get-student-details/',
