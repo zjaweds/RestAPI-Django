@@ -12,28 +12,13 @@ StudentDetailsSchema = f'"id": "1","first_name": "Jawed","last_name": "Alam","em
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
-        # 'Get All Pass Details: ':'all-pass-details/',
-        # 'Get One Pass Detail: ':'unique-pass-details/{uid}',
-        # 'Update A Pass Detail: ':'update-pass-details/{uid}',
-        # 'Delete A Pass Detail: ':'delete-pass-details/{uid}',
         'Student Details JSON Structure': StudentDetailsSchema,
         'Get A Student Detail: ':'unique-student-detail/{uid}',
         'Create a student Details':'create-student-details/',
         'Get All Student Details: ':'get-student-details/',
+        'Delete Student Details':'delete-student-details/{st_Id}'
     }
     return Response(api_urls)
-
-@api_view(['GET'])
-def AllPassDetails(request):
-    pDetails = PassDetails.objects.all()
-    serializer = PassDetailsSerializer(pDetails, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def UniquePassDetails(request, payment_Id):
-    pDetails = PassDetails.objects.get(payment_Id = payment_Id)
-    serializer = PassDetailsSerializer(pDetails, many=False)
-    return Response(serializer.data)
 
 @api_view(['GET'])
 def UniqueStudentDetails(request, st_Id):
@@ -59,32 +44,8 @@ def CreateStudentDetails(request):
         return Response(serializer.errors)    
     return Response(serializer.data)
 
-
-@api_view(['POST'])
-def CreatePassDetails(request):
-    serializer = PassDetailsSerializer(data= request.data)
-    if serializer.is_valid():
-        print("Serializer is Valid")
-        serializer.save()
-    else:
-        print("Serializer is invalid")
-    return Response(serializer.data)
-
-@api_view(['PUT'])
-def UpdatePassDetails(request, payment_Id):
-    pDetails = PassDetails.objects.get(payment_Id = payment_Id)
-    pDetails.redeem_status= request.data['redeem_status']
-    # print(pDetails)
-    # print(serializer.is_valid())
-    # if serializer.is_valid():
-    # print(serializer.data)
-    pDetails.save()
-    serializer = PassDetailsSerializer(instance = pDetails)
-    # serializer.save()
-    return Response(serializer.data)
-
 @api_view(['DELETE'])
-def DeletePassDetails(request, payment_Id):
-    pDetails = PassDetails.objects.get(payment_Id = payment_Id)
+def DeleteStudentDetails(request, st_Id):
+    pDetails = StudentDetails.objects.get(id = st_Id)
     pDetails.delete()
     return Response("Item Deleted Successfully")
